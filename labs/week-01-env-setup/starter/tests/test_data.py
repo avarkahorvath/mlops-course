@@ -3,8 +3,6 @@ import pytest
 from week_01_env_setup.config import load_settings
 from week_01_env_setup.data import build_dataset, load_dataframe
 
-
-@pytest.mark.skip(reason="Exercise 3 — implement this test, then delete this skip marker.")
 def test_split_ratios() -> None:
     """Verify the train/test split.
 
@@ -17,4 +15,13 @@ def test_split_ratios() -> None:
        (hint: `pytest.approx(..., abs=0.01)`).
     6. Delete the `@pytest.mark.skip` line above and re-run pytest.
     """
-    raise NotImplementedError
+    settings = load_settings()
+    dataset = load_dataframe(settings)
+
+    x_train, x_test, y_train, y_test = build_dataset(settings)
+
+    assert len(x_train) + len(x_test) == len(dataset)
+    assert len(y_train) + len(y_test) == len(dataset)
+
+    actual_test_fraction = len(x_test) / len(dataset)
+    assert actual_test_fraction == pytest.approx(settings.test_size, abs=0.01)

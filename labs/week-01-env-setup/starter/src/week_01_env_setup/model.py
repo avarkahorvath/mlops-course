@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier
+
+
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -41,3 +45,27 @@ def evaluate_model(model, x_test, y_test) -> dict:
         "recall": round(float(recall_score(y_test, predictions)), 4),
         "f1": round(float(f1_score(y_test, predictions)), 4),
     }
+
+def train_random_forest(x_train, y_train, settings)  -> RandomForestClassifier :
+    model = RandomForestClassifier(
+        n_estimators=500,
+        max_depth=10,
+        min_samples_split=4,
+        class_weight="balanced",
+        random_state=settings.random_seed,
+        n_jobs=-1,
+    )
+    model.fit(x_train, y_train)
+    return model
+
+def train_hgb(x_train, y_train, settings)  -> HistGradientBoostingClassifier :
+    model = HistGradientBoostingClassifier(
+        random_state=settings.random_seed,
+        learning_rate=0.5,
+        max_iter=50
+    )
+
+    model.fit(x_train, y_train)
+    return model
+
+
