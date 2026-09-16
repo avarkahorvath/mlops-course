@@ -8,10 +8,13 @@ decorated with @pytest.mark.skip so the starter passes out of the box.
 """
 import pytest
 
+import mlflow
+
 from week_02_local_services.config import load_settings
 from week_02_local_services.data import build_dataset, load_dataframe
 from week_02_local_services.model import evaluate_model, train_logistic_regression
 
+from week_02_local_services.cli import main
 
 def test_dataframe_loads() -> None:
     """The diabetes CSV loads and has the expected shape."""
@@ -59,10 +62,6 @@ def test_seed_42_metrics() -> None:
     assert metrics["f1"] == pytest.approx(0.5785, abs=0.001)
     assert metrics["accuracy"] == pytest.approx(0.7344, abs=0.001)
 
-
-@pytest.mark.skip(
-    reason="Exercise 3 — implement MLflow logging in cli.py, then remove this skip."
-)
 def test_mlflow_run_logged() -> None:
     """After Exercise 3: confirm that main() logs a run to the tracking server.
 
@@ -80,4 +79,16 @@ def test_mlflow_run_logged() -> None:
     Note: this test requires a running MLflow server. Guard it with a
     reachability check or document that it needs the stack.
     """
-    raise NotImplementedError
+    settings = load_settings()
+    main()
+    client = mlflow.tracking.MlflowClient(settings.mlflow_tracking_uri)
+
+
+    experiment = client.get_experiment_by_name(settings.mlflow_experiment_name)
+
+
+    runs = client.search_runs(experiment.experiment_id)
+    assert len(runs) > 0
+    assert len(runs[0].data.params) > 0
+    assert len(runs[0].data.metrics) > 0
+    
