@@ -123,22 +123,22 @@ services:
       context: .
       dockerfile: mlflow.Dockerfile
     environment:
-      MLFLOW_S3_ENDPOINT_URL: # TODO(student): http://minio:9000
-      AWS_ACCESS_KEY_ID: # TODO(student): ${MINIO_ROOT_USER}
-      AWS_SECRET_ACCESS_KEY: # TODO(student): ${MINIO_ROOT_PASSWORD}
-    # command:
-    #   - --backend-store-uri
-    #   - # TODO(student): postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    #   - --artifacts-destination
-    #   - # TODO(student): s3://${MINIO_BUCKET}
-    #   - --host
-    #   - "0.0.0.0"
-    #   - --port
-    #   - "5000"
-    #   - --allowed-hosts
-    #   # NOTE: MLflow's host check does NOT strip the port, so you must allow the
-    #   # host:port form. The "host:*" wildcard accepts any port.
-    #   - # TODO(student): "localhost,127.0.0.1,mlflow,localhost:*,127.0.0.1:*,mlflow:*"
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID:  ${MINIO_ROOT_USER}
+      AWS_SECRET_ACCESS_KEY:  ${MINIO_ROOT_PASSWORD}
+    command:
+       - --backend-store-uri
+       -  postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+       - --artifacts-destination
+       - s3://${MINIO_BUCKET}
+       - --host
+       - "0.0.0.0"
+       - --port
+       - "5000"
+       - --allowed-hosts
+       # NOTE: MLflow's host check does NOT strip the port, so you must allow the
+       # host:port form. The "host:*" wildcard accepts any port.
+       -  "localhost,127.0.0.1,mlflow,localhost:*,127.0.0.1:*,mlflow:*"
     ports:
       - "${MLFLOW_PORT:-5500}:5000"
     depends_on:
