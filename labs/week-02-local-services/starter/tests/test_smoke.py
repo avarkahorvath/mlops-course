@@ -9,6 +9,7 @@ decorated with @pytest.mark.skip so the starter passes out of the box.
 import pytest
 
 import mlflow
+import os # needed because of lab autograder
 
 from week_02_local_services.config import load_settings
 from week_02_local_services.data import build_dataset, load_dataframe
@@ -79,6 +80,11 @@ def test_mlflow_run_logged() -> None:
     Note: this test requires a running MLflow server. Guard it with a
     reachability check or document that it needs the stack.
     """
+    # needed for lab autograder
+       
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        pytest.skip("Skipping because MLflow server doesn't exist in GitHub Actions")
+
     settings = load_settings()
     main()
     client = mlflow.tracking.MlflowClient(settings.mlflow_tracking_uri)
