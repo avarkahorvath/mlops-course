@@ -120,7 +120,7 @@ def promote_to_staging(
     validation_f1 = f"{run.data.metrics.get('f1', 0.0):.4f}"
     validation_roc_auc = f"{run.data.metrics.get('roc_auc', 0.0):.4f}"
     promoted_by = settings.model_owner
-    promoted_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    promoted_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
     client.set_model_version_tag(name, version, "validation_f1", validation_f1)
     client.set_model_version_tag(name, version, "validation_roc_auc", validation_roc_auc)
@@ -226,8 +226,42 @@ def roll_back(
        now resolves to).
     Delete the Exercise 7 skip markers in tests/test_registry.py.
     """
-    _ = (settings, to_version, reason)  # silence unused-argument warnings until you implement
-    return None  # placeholder — the CLI reports this as "not implemented yet"
+    
+    client = MlflowClient(settings.mlflow_tracking_uri)
+    name, alias = settings.registered_model_name, settings.model_alias
+    
+    current = client.get_model_version_by_alias(name, alias)
+    current_version = current.version
+
+
+    if current_version == to_version:
+        raise ValueError(
+            f"Refused: @{alias} already points at version {to_version}."
+        )
+    
+    target = client.get_model_version(name, to_version)
+    if "promoted_at" not in target.tags:
+        raise ValueError(
+            f"Refused: Version {to_version} was never promoted and is not a known-good rollback target."
+        )
+
+
+    
+    rolled_back_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+    client.set_model_version_tag(name, current_version, "rolled_back_at", rolled_back_at)
+    client.set_model_version_tag(name, current_version, "rolled_back_to", to_version)
+    client.set_model_version_tag(name, current_version, "rollback_reason", reason)
+
+    
+    client.set_registered_model_alias(name, alias, to_version)
+    client.set_registered_model_alias(name, "champion", to_version)
+
+    
+    new_current = client.get_model_version_by_alias(name, alias)
+    
+    return (current_version, new_current)
+
 
 
 def load_aliased_model(settings: Settings):

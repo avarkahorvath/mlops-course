@@ -90,7 +90,6 @@ def rollback_registry(live_settings, sweep_results):
     return settings, first, second, unpromoted
 
 
-@pytest.mark.skip(reason="Exercise 7 — implement roll_back(), then delete this skip marker.")
 def test_rollback_refuses_unpromoted_target(rollback_registry) -> None:
     """Exercise 7: a version that never passed promotion is not a rollback target."""
     settings, _, _, unpromoted = rollback_registry
@@ -108,7 +107,6 @@ def test_rollback_refuses_unpromoted_target(rollback_registry) -> None:
     assert after == before, "a refused rollback must not move the alias"
 
 
-@pytest.mark.skip(reason="Exercise 7 — implement roll_back(), then delete this skip marker.")
 def test_rollback_moves_both_aliases_and_records_why(rollback_registry) -> None:
     """Exercise 7: both aliases move back, and the demoted version says why."""
     settings, first, second, _ = rollback_registry
