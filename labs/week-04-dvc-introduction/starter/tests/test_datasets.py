@@ -63,7 +63,6 @@ def test_build_uses_lf_line_endings(make_raw, tmp_path) -> None:
     )
 
 
-@pytest.mark.skip(reason="Exercise 4 — add versions 2 and 3, then delete this skip marker.")
 def test_build_from_all_batches(make_raw, incoming, tmp_path) -> None:
     """All three batches give 768 rows, with the batch files' columns."""
     out = tmp_path / "measurements.csv"
@@ -76,7 +75,6 @@ def test_build_from_all_batches(make_raw, incoming, tmp_path) -> None:
     )
 
 
-@pytest.mark.skip(reason="Exercise 4 — add versions 2 and 3, then delete this skip marker.")
 def test_committed_pointer_names_all_three_batches(
     make_raw, measurements_pointer, tmp_path
 ) -> None:

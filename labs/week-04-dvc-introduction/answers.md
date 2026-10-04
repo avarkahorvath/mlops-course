@@ -15,4 +15,13 @@ dvc pull data/measurements.csv
  - 1. have creds for silo
  - 2. they have the correct silo endpoint, make dvc-init was run and committed
 
- 
+ # Task 4
+
+ ## 1.
+ git checkout - It changed the pointer file on disk, swapped the md5 to v1 (from v3). The actual data file was unchanged.
+ dvc checkout - It read the new pointer, and based on that, replaced the actual data file with v1's content.
+
+ measurements.csv is gitignored, git cannot track it. DVC has no concept of git history. Git has to pick the pointer, and DVC has to get the data based on that.
+
+ ## 2.
+ git checkout would be successful, the pointer would change. At that point, v1 would not be in cache, it would fail with "ERROR: Checkout failed for following targets: [..] Is your cache up to date?".
