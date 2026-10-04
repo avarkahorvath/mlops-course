@@ -35,7 +35,7 @@ dvc pull data/measurements.csv
       - src/week_04_dvc_introduction/pipeline.py
       - src/week_04_dvc_introduction/model.py
 
-If data/processed/test.csv was missing, the pipeline would still run. Evaluate scores the data based on this, and only that changes, DVC would skip eval, and the scores would be kept from the old test set.
+If data/processed/test.csv was missing, the pipeline would still run, but could produce the wrong result. Evaluate scores the data on test.csv, and if only the test data changes (and nothing apart from that), DVC would not notice. So this step would not be run again and the scores would be kept from the old test set.
 
 
  ## 2.
@@ -44,3 +44,21 @@ Path                  accuracy    f1      precision    recall    roc_auc
 metrics/metrics.json  0.7656      0.6154  0.72         0.5373    0.8183
 
 Here, the train-test split is different because of the order of rows. v3 is built by merging the 3 batches together in arrival order.  The overall content is the same, but the order differs, so the train/test differs too, which influences the results.
+
+# Task 6
+
+## 1.
+MLflow's 8 characters is a short fingerprint of the dataset. DVC's 32 characters hash the exact bytes, and also serves as an address to that file. I would give the auditor the md5, because with that, the object is able to be fetched from the remote, and the hash can be reproduced. Mlflow is good for a quick check, to see if two runs used the same logged dataset.
+
+## 2.
+
+tags.dvc_md5 = 'a8fd7b4f0d6d1bc4e378a8f76c5fff0c'
+It finds runs that trained on this data version. Week3 only logged surface level info about the data that could stay the same even if the content changed.  It could not tell 2 versions of the data apart.
+
+
+## 3.
+The new line is :
+5. Data version : a8fd7b4f0d6d1bc4e378a8f76c5fff0c
+   Data location
+
+The chain is incomplete. The run does not record whether the file on disk really matches the pointer. If the data was edited, but not dvc added, it would carry the old and incorrect md5, and no one would be able to tell from the trace.

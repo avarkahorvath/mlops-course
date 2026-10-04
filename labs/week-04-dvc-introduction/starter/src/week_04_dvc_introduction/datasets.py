@@ -45,7 +45,8 @@ def build_measurements(raw_dir: Path, out_path: Path) -> int:
     `DataFrame.to_csv`, and look at its options. Return the frame's row count.
     """
     paths = batch_paths(raw_dir)
-
+    Path(out_path).parent.mkdir(parents=True, exist_ok=True)
+    
     df = pd.concat([pd.read_csv(path) for path in paths])
     df.to_csv(out_path, index=False)
 
