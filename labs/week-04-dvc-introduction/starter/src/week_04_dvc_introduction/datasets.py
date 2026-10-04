@@ -45,8 +45,11 @@ def build_measurements(raw_dir: Path, out_path: Path) -> int:
     `DataFrame.to_csv`, and look at its options. Return the frame's row count.
     """
     paths = batch_paths(raw_dir)
-    _ = (pd, paths)  # keep the names meaningful until you implement the body
-    return 0  # placeholder — the CLI reports this as "not implemented yet"
+
+    df = pd.concat([pd.read_csv(path) for path in paths])
+    df.to_csv(out_path, index=False)
+
+    return len(df)
 
 
 def file_md5(path: Path) -> str:
