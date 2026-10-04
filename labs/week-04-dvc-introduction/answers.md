@@ -25,3 +25,22 @@ dvc pull data/measurements.csv
 
  ## 2.
  git checkout would be successful, the pointer would change. At that point, v1 would not be in cache, it would fail with "ERROR: Checkout failed for following targets: [..] Is your cache up to date?".
+
+ # Task 5
+
+ ## 1.
+      - data/processed/test.csv
+      - models/model.pkl
+      - models/mlflow_run_id.json
+      - src/week_04_dvc_introduction/pipeline.py
+      - src/week_04_dvc_introduction/model.py
+
+If data/processed/test.csv was missing, the pipeline would still run. Evaluate scores the data based on this, and only that changes, DVC would skip eval, and the scores would be kept from the old test set.
+
+
+ ## 2.
+My results:
+Path                  accuracy    f1      precision    recall    roc_auc
+metrics/metrics.json  0.7656      0.6154  0.72         0.5373    0.8183
+
+Here, the train-test split is different because of the order of rows. v3 is built by merging the 3 batches together in arrival order.  The overall content is the same, but the order differs, so the train/test differs too, which influences the results.
