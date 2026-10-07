@@ -57,8 +57,6 @@ def write_measurements(sandbox, frame: pd.DataFrame) -> None:
 
 # ── The validate stage (Exercise 4) ──────────────────────────────────────────
 
-
-@pytest.mark.skip(reason="Exercise 4 — write validate, the check in prepare and the validate stage, then delete this skip marker.")
 def test_validate_passes_a_legal_batch_and_writes_the_report(sandbox) -> None:
     write_measurements(sandbox, legal_batch())
     report = pipeline.validate(sandbox)
@@ -68,8 +66,6 @@ def test_validate_passes_a_legal_batch_and_writes_the_report(sandbox) -> None:
     )
     assert "sentinel_zeros" in report, "Add the sentinel counts to the report."
 
-
-@pytest.mark.skip(reason="Exercise 4 — write validate, the check in prepare and the validate stage, then delete this skip marker.")
 def test_validate_writes_the_report_and_then_stops_a_bad_batch(sandbox) -> None:
     frame = legal_batch()
     frame.loc[0, "outcome"] = 2
@@ -82,15 +78,11 @@ def test_validate_writes_the_report_and_then_stops_a_bad_batch(sandbox) -> None:
     assert report["passed"] is False
     assert "isin([0, 1])" in report["by_check"]
 
-
-@pytest.mark.skip(reason="Exercise 4 — write validate, the check in prepare and the validate stage, then delete this skip marker.")
 def test_prepare_refuses_to_run_without_a_report(sandbox) -> None:
     write_measurements(sandbox, legal_batch())
     with pytest.raises(FileNotFoundError, match="validate"):
         pipeline.prepare(sandbox)
 
-
-@pytest.mark.skip(reason="Exercise 4 — write validate, the check in prepare and the validate stage, then delete this skip marker.")
 def test_a_failed_validation_blocks_prepare_and_writes_nothing(sandbox) -> None:
     frame = legal_batch()
     frame.loc[0, "bmi"] = 280.0

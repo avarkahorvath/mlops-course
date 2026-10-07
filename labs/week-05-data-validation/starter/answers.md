@@ -19,4 +19,24 @@ The ML engineer should also accept it, because this change affects the state of 
 
 
  - `7 - age - 250` The value of the column was greater than expected (120).
- -
+ 
+
+ ## Task4
+
+### 1.
+*Compare the two runs of make gate-fail. Without the gate, which files did the row with age = 250 reach, and who or what would use them next?*
+
+In the older version, it ran the prepare, train and evaluate. The md5 changed, because the age=250 row ended up in train.csv or test.csv. The former means a model would train on this row, the latter would mean that it will be used to evaluate the model. 
+
+In the newer version, validate fails, so the train.csv md5 stays the same. 
+
+Without the gate, they 
+### 2. 
+*validate has failed. A teammate in a hurry runs uv run python src/main.py prepare by hand. What happens, and which line of your code makes it happen? Why is the edge in dvc.yaml not enough on its own?*
+
+Even by hand, it will not work. _require_validated(settings) in prepare, pipeline.py reads validation.json and raises if passed is false.
+
+### 3.
+*You raise MAX_AGE from 120 to 125. Predict which stages make repro runs and which it skips. Try it, then set the value back and run make repro again. Explain why each stage ran or skipped, and say whether the model needed to be trained again.*
+
+validate reruns, one of its deps is schemas.py. prepare skips, because the deps and inputs are unchanged. train and evaluate would rerun, because both have schemas.py as a dep. The model would have to be trained again.
