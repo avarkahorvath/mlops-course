@@ -28,14 +28,12 @@ EXPECTED_BY_CHECK = {
 }
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_the_real_dataset_passes_the_ingestion_contract(measurements_file) -> None:
     report = validate_frame(read_raw(measurements_file), RawMeasurements, "measurements.csv")
     assert report["passed"], f"The real data fails RawMeasurements: {report['by_check']}"
     assert report["rows"] == 768
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_broken_batch_fails_with_the_expected_report(broken_batch) -> None:
     report = validate_frame(read_raw(broken_batch), RawMeasurements, broken_batch.name)
     assert not report["passed"]
@@ -47,7 +45,6 @@ def test_broken_batch_fails_with_the_expected_report(broken_batch) -> None:
     assert report["by_check"] == EXPECTED_BY_CHECK
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_every_fault_is_found_at_its_row(broken_batch) -> None:
     report = validate_frame(read_raw(broken_batch), RawMeasurements, broken_batch.name)
     found = {(case["row"], case["column"]) for case in report["failure_cases"]}
@@ -55,7 +52,6 @@ def test_every_fault_is_found_at_its_row(broken_batch) -> None:
         assert (row, column) in found, f"No failure case for {column} in row {row}."
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_report_is_plain_json(broken_batch, tmp_path) -> None:
     """The report holds plain values, so it survives a round trip through a file."""
     report = validate_frame(read_raw(broken_batch), RawMeasurements, broken_batch.name)

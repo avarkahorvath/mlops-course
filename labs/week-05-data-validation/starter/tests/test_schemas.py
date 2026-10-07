@@ -43,12 +43,10 @@ def model_frame(**overrides) -> pd.DataFrame:
 # ── RawMeasurements (Exercise 1) ─────────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_a_legal_batch_passes() -> None:
     assert validate_frame(raw_frame(), RawMeasurements)["passed"]
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_the_ingestion_contract_allows_sentinel_zeros() -> None:
     report = validate_frame(raw_frame(glucose=0, insulin=0, bmi=0), RawMeasurements)
     assert report["passed"], (
@@ -57,7 +55,6 @@ def test_the_ingestion_contract_allows_sentinel_zeros() -> None:
     )
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 @pytest.mark.parametrize(
     "overrides, expected_check",
     [
@@ -76,27 +73,23 @@ def test_the_ingestion_contract_rejects_a_bad_value(overrides, expected_check) -
     )
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_the_ingestion_contract_rejects_a_missing_value() -> None:
     frame = raw_frame()
     frame.loc[0, "blood_pressure"] = None
     assert "not_nullable" in validate_frame(frame, RawMeasurements)["by_check"]
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_the_ingestion_contract_rejects_an_extra_column() -> None:
     frame = raw_frame()
     frame["notes"] = "imported from lab system v2"
     assert "column_in_schema" in validate_frame(frame, RawMeasurements)["by_check"]
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_the_ingestion_contract_rejects_a_duplicated_row() -> None:
     frame = pd.concat([raw_frame(), raw_frame().head(1)], ignore_index=True)
     assert "no_duplicate_rows" in validate_frame(frame, RawMeasurements)["by_check"]
 
 
-@pytest.mark.skip(reason="Exercise 1 — write RawMeasurements and validate_frame, then delete this skip marker.")
 def test_validate_frame_collects_every_failure() -> None:
     """Lazy mode reports all three faults; the default stops at the first."""
     frame = raw_frame(age=250, outcome=2, insulin=-1)
