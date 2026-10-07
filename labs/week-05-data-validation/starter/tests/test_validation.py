@@ -74,7 +74,6 @@ def test_sentinel_counts_match_the_dataset(settings) -> None:
 # ── to_nullable (Exercise 3) ─────────────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_to_nullable_converts_only_the_sentinel_columns() -> None:
     frame = pd.DataFrame(
         {"glucose": [0, 148], "bmi": [0.0, 33.6], "pregnancies": [0, 6], "outcome": [0, 1]}
@@ -86,7 +85,6 @@ def test_to_nullable_converts_only_the_sentinel_columns() -> None:
     assert converted["outcome"].tolist() == [0, 1]
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_to_nullable_uses_the_nullable_float_type() -> None:
     converted = to_nullable(pd.DataFrame({"glucose": [0, 148]}))
     assert str(converted["glucose"].dtype) == "Float64", (
@@ -94,7 +92,6 @@ def test_to_nullable_uses_the_nullable_float_type() -> None:
     )
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_to_nullable_fills_nothing_in_and_leaves_its_input_alone() -> None:
     frame = pd.DataFrame({"glucose": [0, 148, 0]})
     converted = to_nullable(frame)
@@ -102,7 +99,6 @@ def test_to_nullable_fills_nothing_in_and_leaves_its_input_alone() -> None:
     assert frame["glucose"].tolist() == [0, 148, 0], "to_nullable changed its input frame."
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_model_input_fails_652_times_before_the_conversion_and_never_after(
     measurements_file,
 ) -> None:

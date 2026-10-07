@@ -109,40 +109,34 @@ def test_to_schema_returns_one_shared_object() -> None:
 # ── ModelInput and PredictionInput (Exercise 3) ──────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_model_input_has_the_model_columns_in_order() -> None:
     assert list(ModelInput.to_schema().columns) == MODEL_INPUT_COLUMNS, (
         "Declare the ModelInput columns in the order of FEATURE_COLUMNS, then outcome."
     )
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_model_input_rejects_a_sentinel_zero() -> None:
     report = validate_frame(model_frame(glucose=0), ModelInput)
     assert report["by_check"] == {"greater_than(0)": 1}
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_model_input_accepts_a_missing_sentinel_value() -> None:
     frame = to_nullable(model_frame(glucose=0))
     report = validate_frame(frame, ModelInput)
     assert report["passed"], f"A missing glucose fails ModelInput: {report['by_check']}"
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_model_input_rejects_columns_in_another_order() -> None:
     frame = to_nullable(model_frame())
     reordered = frame[["glucose", "pregnancies"] + MODEL_INPUT_COLUMNS[2:]]
     assert "column_ordered" in validate_frame(reordered, ModelInput)["by_check"]
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_model_input_rejects_the_date_column() -> None:
     frame = to_nullable(raw_frame())
     assert "column_in_schema" in validate_frame(frame, ModelInput)["by_check"]
 
 
-@pytest.mark.skip(reason="Exercise 3 — write ModelInput and to_nullable, then delete this skip marker.")
 def test_prediction_input_is_model_input_without_the_label() -> None:
     features = to_nullable(model_frame()).drop(columns=["outcome"])
     assert validate_frame(features, PredictionInput)["passed"]
