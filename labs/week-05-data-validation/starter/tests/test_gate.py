@@ -98,7 +98,6 @@ def test_a_failed_validation_blocks_prepare_and_writes_nothing(sandbox) -> None:
 # ── The model input and the imputer (Exercise 5) ─────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 5 — write prepare_model_input and the imputer step, then delete this skip marker.")
 def test_prepare_model_input_turns_zeros_into_missing_values() -> None:
     frame = legal_batch()
     frame.loc[0, "glucose"] = 0
@@ -111,7 +110,6 @@ def test_prepare_model_input_turns_zeros_into_missing_values() -> None:
     assert len(labels) == len(frame)
 
 
-@pytest.mark.skip(reason="Exercise 5 — write prepare_model_input and the imputer step, then delete this skip marker.")
 def test_prepare_model_input_stops_a_value_it_cannot_repair() -> None:
     frame = legal_batch()
     frame.loc[0, "bmi"] = 280.0
@@ -119,7 +117,6 @@ def test_prepare_model_input_stops_a_value_it_cannot_repair() -> None:
         pipeline.prepare_model_input(frame)
 
 
-@pytest.mark.skip(reason="Exercise 5 — write prepare_model_input and the imputer step, then delete this skip marker.")
 def test_the_model_carries_an_imputer(sandbox) -> None:
     write_measurements(sandbox, legal_batch(60))
     pipeline.validate(sandbox)
@@ -130,7 +127,7 @@ def test_the_model_carries_an_imputer(sandbox) -> None:
     assert model.named_steps["imputer"].strategy == sandbox.impute_strategy
 
 
-@pytest.mark.skip(reason="Exercise 5 — write prepare_model_input and the imputer step, then delete this skip marker.")
+
 def test_the_pipeline_reaches_the_week_5_metrics(sandbox, raw_batches) -> None:
     """On the full dataset, the median imputer gives the course's pinned metrics."""
     build_measurements(raw_batches, sandbox.measurements_path)

@@ -17,8 +17,8 @@ stages:
       size: 2494
     - path: src/week_05_data_validation/pipeline.py
       hash: md5
-      md5: 2faecd5c4d24c715a735d8d22eb6e5e4
-      size: 8971
+      md5: eb54c1b26db66e764e8f9b73fd75f0b3
+      size: 9342
     params:
       params.yaml:
         prepare.test_size: 0.25
@@ -45,12 +45,12 @@ stages:
       size: 3250
     - path: src/week_05_data_validation/model.py
       hash: md5
-      md5: 4e6a72fb23cc6dec6c829b03e86989a7
-      size: 2849
+      md5: e2c72869df9117f71fe63a9a60eb7b6e
+      size: 3125
     - path: src/week_05_data_validation/pipeline.py
       hash: md5
-      md5: 2faecd5c4d24c715a735d8d22eb6e5e4
-      size: 8971
+      md5: eb54c1b26db66e764e8f9b73fd75f0b3
+      size: 9342
     - path: src/week_05_data_validation/schemas.py
       hash: md5
       md5: d773416794c26cd200c606b79d4232d6
@@ -73,8 +73,8 @@ stages:
       size: 46
     - path: models/model.pkl
       hash: md5
-      md5: 6d7d9fae1534f2ca758e11d987a51ece
-      size: 1937
+      md5: e5e8069e19bef4cdf44101c133ae93ee
+      size: 2273
   evaluate:
     cmd: uv run python src/main.py evaluate
     deps:
@@ -88,16 +88,16 @@ stages:
       size: 46
     - path: models/model.pkl
       hash: md5
-      md5: 6d7d9fae1534f2ca758e11d987a51ece
-      size: 1937
+      md5: e5e8069e19bef4cdf44101c133ae93ee
+      size: 2273
     - path: src/week_05_data_validation/model.py
       hash: md5
-      md5: 4e6a72fb23cc6dec6c829b03e86989a7
-      size: 2849
+      md5: e2c72869df9117f71fe63a9a60eb7b6e
+      size: 3125
     - path: src/week_05_data_validation/pipeline.py
       hash: md5
-      md5: 2faecd5c4d24c715a735d8d22eb6e5e4
-      size: 8971
+      md5: eb54c1b26db66e764e8f9b73fd75f0b3
+      size: 9342
     - path: src/week_05_data_validation/schemas.py
       hash: md5
       md5: d773416794c26cd200c606b79d4232d6
@@ -109,8 +109,8 @@ stages:
     outs:
     - path: metrics/metrics.json
       hash: md5
-      md5: 43c2a8c3c2906831fc1285a6673900e6
-      size: 103
+      md5: 6a5f49039d799a608192bdbccb853a27
+      size: 105
   validate:
     cmd: uv run python src/main.py validate
     deps:
@@ -120,8 +120,8 @@ stages:
       size: 31750
     - path: src/week_05_data_validation/pipeline.py
       hash: md5
-      md5: 2faecd5c4d24c715a735d8d22eb6e5e4
-      size: 8971
+      md5: eb54c1b26db66e764e8f9b73fd75f0b3
+      size: 9342
     - path: src/week_05_data_validation/schemas.py
       hash: md5
       md5: d773416794c26cd200c606b79d4232d6
