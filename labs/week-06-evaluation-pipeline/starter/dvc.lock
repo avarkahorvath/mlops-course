@@ -186,3 +186,58 @@ stages:
       hash: md5
       md5: e8eed88b98d06de84eae3319ad45921d
       size: 4917
+  gate:
+    cmd: uv run python src/main.py gate
+    deps:
+    - path: metrics/baseline.json
+      hash: md5
+      md5: 20a2ddf457de05236fc2eb7371d6ddc7
+      size: 253
+    - path: metrics/metrics.json
+      hash: md5
+      md5: 6a5f49039d799a608192bdbccb853a27
+      size: 105
+    - path: metrics/slices.json
+      hash: md5
+      md5: e8eed88b98d06de84eae3319ad45921d
+      size: 4917
+    - path: models/mlflow_run_id.json
+      hash: md5
+      md5: d8d778c02be5e47c081a930102210531
+      size: 46
+    - path: src/week_06_evaluation_pipeline/baseline.py
+      hash: md5
+      md5: 828fd8dfdc1b488b4d263211551dfdc9
+      size: 3832
+    - path: src/week_06_evaluation_pipeline/gates.py
+      hash: md5
+      md5: cff4a39c693decd64c03997932c77b2f
+      size: 14147
+    - path: src/week_06_evaluation_pipeline/pipeline.py
+      hash: md5
+      md5: 9087fb354afd8c459b17607d2473dc1d
+      size: 14808
+    params:
+      params.yaml:
+        acceptance:
+          criteria_version: 1.0.0
+          minimum:
+            accuracy: 0.7
+            f1: 0.6
+            roc_auc: 0.8
+          regression:
+            primary_metric: f1
+            max_drop: 0.01
+            also_report:
+            - accuracy
+            - roc_auc
+          slice_rules:
+            min_support: 20
+            min_positives: 10
+            min_f1: 0.5
+            max_f1_gap: 0.1
+    outs:
+    - path: reports/gate.json
+      hash: md5
+      md5: 38c1749e71df6aa7d834114ab471fbc3
+      size: 3982

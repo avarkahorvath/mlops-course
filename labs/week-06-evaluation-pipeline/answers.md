@@ -21,3 +21,26 @@ So before acting on it, more data is needed on 50+ patients specifically, 19 pat
 There is only 1 positive in that subset.
 The 0 f1 means that for that 1 case, the model predicted negative, it did not catch it. 
 Roc auc is treshold independent, it only checks if the model ranked the positive patient above all the other patients. A 1 score means it did, which shows the model has some sort of signal for the patient.  30 patients and 1 positive case is still not enough to call it completely reliable thoigh.
+
+## Exercise 4
+
+### 4.1
+*Week 5's gate worked because prepare depended on the verdict file. Why can that not work for this gate, and what replaces it?*
+
+Previously, the gate checked the data, the order was validate->prepare->train. If the data was bad, then prepare did not even start, the gate stopped the pipeline before train.
+Now, the gate checks the model, the order is train->eval->gate, when the gate is checked, the model already exists. The gate is the last step, no stage can depend on this.
+This protects the model going into the registry still, so it cannot be released. register and promote call require_go, so these do not release the model unless it's 'go'.
+
+### 4.2
+*What happens if register does not call require_go? Who would notice, and when?*
+The no-go model would be registered and promoted, because nothing checks the verdict. No error appears, no one would notice right away, only later, when the model starts performing worse in real life. 
+
+### 4.3
+*With C: 0.005, F1 fell by 0.1098 and ROC AUC rose. Which one is the right answer? What do you need to know about how the model is used, and what does acceptance.regression.primary_metric commit you to?*
+
+Both are correct, depending on the use of the model. ROC AUC rising means that the new model ranks sick patients above healthy ones a bit better. F1 falling means that at the 0.5 threshold, it catches fewer diabetics.
+
+If it is possible to change the threshold, the better ROC AUC matters more and the new model could be OK. But if the model has a fixed treshold at at 0.5, F1 matters more and the new model is worse. 
+To get to a conclusion, we need to know if the threshold is fixed, and whether missing a diabetic is worse than a false alarm.
+
+I set the primary metric to f1, which commits me to judge the model by its yes/no decisions at 0.5. So the gate blocks this model, even though it ranks better.
