@@ -44,3 +44,22 @@ If it is possible to change the threshold, the better ROC AUC matters more and t
 To get to a conclusion, we need to know if the threshold is fixed, and whether missing a diabetic is worse than a false alarm.
 
 I set the primary metric to f1, which commits me to judge the model by its yes/no decisions at 0.5. So the gate blocks this model, even though it ranks better.
+
+
+## Exercise 5
+
+### 5.1
+*age_band has a selection-rate gap over 0.30, yet you gate only its TPR gap. Why is the large selection-rate gap defensible?*
+ Diabetes is more common in older patients, so it is normal that the model flags them more often, this reflects real life. The thing that matters here is that the truly sick people are caught equally, and that is the TPR gap.
+
+### 5.2
+*The TPR limit on age_band is looser than on insulin_missing. Why, and what would make you tighten it?*
+
+It is because the groups are not equal, insulin_missing has 2 big groups while age_band has 4 groups. When there are only a few positives, even just one patient moves TPR a lot, the age gap is noiser for this reason. I would tighten it if I had more data, especially for these subgroups (so more 50+ diabetes patients).
+
+### 5.3
+*This dataset has no sex, ethnicity, income or clinic column. Name one group you would want to audit this model for and cannot. What would have had to happen, and when?*
+First, we have to look at the origin of the dataset. The Pima dataset has only female and Indian women, so I can rule out sex and ethnicity. 
+
+I would pick income, a poorer patient might be unfairly misdiagnosed with the current model and I would not even realize it. They might get fewer tests or get sick easier because of the lack of healthy food/a worse lifestyle.
+ When the data was recorded, income could have been collected aswell. It is almost impossible to collect it later, because of the strict health organization guidelines, data is (hopefully) anonymized, so we cannot get the data later by asking the patients. 

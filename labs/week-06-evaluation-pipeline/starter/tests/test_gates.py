@@ -211,7 +211,6 @@ def test_no_slice_report_is_one_visible_skip_not_silence():
 # ── fairness ──────────────────────────────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 5 — fill in the TODO in _fairness_checks in gates.py, then delete this skip marker.")
 def test_a_gap_over_its_limit_is_a_no_go():
     unfair = slices(
         {"big": {"n": 100, "n_positives": 40, "f1": 0.62}},
@@ -234,7 +233,6 @@ def test_an_undefined_gap_is_skipped():
     assert by_id(report)["fairness.grp.tpr_gap"]["status"] == "skipped"
 
 
-@pytest.mark.skip(reason="Exercise 5 — fill in the TODO in _fairness_checks in gates.py, then delete this skip marker.")
 def test_each_gated_axis_has_its_own_limit():
     gap = {"groups": {}, "selection_rate_gap": 0.01, "tpr_gap": 0.22,
            "fpr_gap": 0.01, "equalized_odds_difference": 0.22, "min_group_for_gap": 5}

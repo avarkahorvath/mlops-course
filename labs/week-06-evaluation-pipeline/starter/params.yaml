@@ -75,4 +75,11 @@ acceptance:
   # max_tpr_gap or max_equalized_odds_difference. An axis you leave out is only
   # reported.
 
+  fairness:
+    age_band:
+      max_tpr_gap: 0.25
+    insulin_missing:
+      max_selection_rate_gap: 0.1
+      max_tpr_gap: 0.20
+
 

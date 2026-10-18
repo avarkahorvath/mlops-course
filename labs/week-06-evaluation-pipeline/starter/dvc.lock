@@ -121,8 +121,8 @@ stages:
       size: 8962
     - path: src/week_06_evaluation_pipeline/fairness.py
       hash: md5
-      md5: bfd5d2b2f1922635945b40807e25e3f5
-      size: 5367
+      md5: b900fa881cef0ed6e1105aa2a71d897a
+      size: 6085
     - path: src/week_06_evaluation_pipeline/model.py
       hash: md5
       md5: 48c407d92c00098145b1bf4a4849ea18
@@ -184,8 +184,8 @@ stages:
       size: 105
     - path: metrics/slices.json
       hash: md5
-      md5: e8eed88b98d06de84eae3319ad45921d
-      size: 4917
+      md5: 638d4ebe56c881bedc2491b27dbf9aa2
+      size: 4975
   gate:
     cmd: uv run python src/main.py gate
     deps:
@@ -199,8 +199,8 @@ stages:
       size: 105
     - path: metrics/slices.json
       hash: md5
-      md5: e8eed88b98d06de84eae3319ad45921d
-      size: 4917
+      md5: 638d4ebe56c881bedc2491b27dbf9aa2
+      size: 4975
     - path: models/mlflow_run_id.json
       hash: md5
       md5: d8d778c02be5e47c081a930102210531
@@ -211,8 +211,8 @@ stages:
       size: 3832
     - path: src/week_06_evaluation_pipeline/gates.py
       hash: md5
-      md5: cff4a39c693decd64c03997932c77b2f
-      size: 14147
+      md5: 2e8ba668ac256c1a0d0af8b980a672da
+      size: 14158
     - path: src/week_06_evaluation_pipeline/pipeline.py
       hash: md5
       md5: 9087fb354afd8c459b17607d2473dc1d
