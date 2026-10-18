@@ -3,7 +3,7 @@
 ### 2.1
 *Which group is the model worst on, and by how much against the aggregate? How far can you trust that gap, given the group's n?*
 
-For age_band, the worst group is 50+ on almost every metric, it underperforms when compared to the other groups in age_band. accuracy is 0.1867 worse, f1 is 0.1341 worse, recall is 0.0107 worse, roc_auc is 0.2274 worse. Roc auc is the most meaningful metric here, because it is treshold independent, and this drop compared to the aggregate is substancial. 19 data rows are enough to take seriously, but it is not enough to trust that gap yet, a few new patients could influence the scores substancially.
+For age_band, the worst group is 50+ on almost every metric, it underperforms when compared to the other groups in age_band. accuracy is 0.1867 worse, f1 is 0.1341 worse, recall is 0.0107 worse, roc_auc is 0.2274 worse. Roc auc is the most affected metric here, because it is treshold independent, and this drop compared to the aggregate is substancial. 19 data rows are enough to take seriously, but it is not enough to trust that gap yet, a few new patients could influence the scores substancially.
 
 bmi band has even worse regarding scores, but it has only 2 instances, so the scores do not imply any reliable finding here.
 
