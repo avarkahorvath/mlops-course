@@ -98,7 +98,7 @@ stages:
       size: 46
     - path: models/model.pkl
       hash: md5
-      md5: f6f7d2832bfbd795008dfc54b4be0347
+      md5: 927c40e4b3749d2a0e26921f52628079
       size: 2273
   evaluate:
     cmd: uv run python src/main.py evaluate
@@ -113,7 +113,7 @@ stages:
       size: 46
     - path: models/model.pkl
       hash: md5
-      md5: f6f7d2832bfbd795008dfc54b4be0347
+      md5: 927c40e4b3749d2a0e26921f52628079
       size: 2273
     - path: src/week_07_ci_workflow/evaluation.py
       hash: md5
