@@ -1,6 +1,6 @@
 
 CI Url: https://github.com/avarkahorvath/mlops-course/actions/runs/41062788878
-CT Url: 
+CT Url: https://github.com/avarkahorvath/mlops-course/actions/runs/41070884085
 
 ## Exercise  1
 
