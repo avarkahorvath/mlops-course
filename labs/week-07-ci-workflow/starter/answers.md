@@ -12,6 +12,9 @@ In the folders matching labs/*/starter or labs/* that have a pyproject.toml, it 
 
 ## Exercise 5
 
+CI Url: https://github.com/avarkahorvath/mlops-course/actions/runs/41062788878
+CT Url:
+
 ### 5.1
 *What differs between ci.yml and ct.yml, and what is the same? What does the difference change: who waits for the run, is there a diff to read, and who approved the input?*
 
