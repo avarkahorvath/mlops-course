@@ -9,8 +9,8 @@ import pytest
 from week_07_ci_workflow import pipeline
 from week_07_ci_workflow.data import FEATURE_COLUMNS, load_measurements
 
-# TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
-# unit, data, eval or integration.
+# eval, not unit: these tests build the dataset and train a real model, which the unit layer's definition does not allow
+pytestmark = pytest.mark.eval
 
 
 @pytest.fixture

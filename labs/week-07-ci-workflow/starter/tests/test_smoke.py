@@ -9,8 +9,8 @@ from week_07_ci_workflow.model import (
     train_logistic_regression,
 )
 
-# TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
-# unit, data, eval or integration.
+# unit, not eval: it only checks that the basic chain runs without crashing
+pytestmark = pytest.mark.unit
 
 
 def test_dataframe_loads(settings) -> None:
