@@ -84,7 +84,6 @@ def test_the_network_retries_use_backoff_and_jitter():
 # ── The training flow (Exercise 1) ──────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 1 — wire training_flow, then delete this skip marker.")
 def test_training_flow_runs_the_pipeline_then_notifies(
     prefect_harness, monkeypatch, tmp_path, settings
 ):
@@ -100,7 +99,6 @@ def test_training_flow_runs_the_pipeline_then_notifies(
     assert calls["notify"][-1]["error"] is None
 
 
-@pytest.mark.skip(reason="Exercise 1 — wire training_flow, then delete this skip marker.")
 def test_training_flow_notifies_and_reraises_when_the_pipeline_fails(
     prefect_harness, monkeypatch, tmp_path, settings
 ):

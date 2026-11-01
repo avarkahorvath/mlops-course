@@ -76,11 +76,25 @@ def training_flow(
     #   build_dataset(settings)
     #   verdict = run_pipeline(settings)
     #   notify(settings, verdict)
-    #
     # `notify` has to run on the failure path too. Wrap the body in
     # try/except, notify with the error, and re-raise. A flow that only
     # reports its successes is the Toy Story 2 backup with extra steps.
     #
+
+
+    settings = load_settings()
+    try:
+        build_dataset(settings)
+        verdict = run_pipeline(settings)
+
+    except Exception as e:
+        notify(settings, {}, error=str(e))
+        raise
+
+    notify(settings, verdict)
+        
+    return verdict
+
     # TODO(student) Exercise 4 — record the parameters, and refuse
     # uncommitted ones when asked.
     #
@@ -89,8 +103,7 @@ def training_flow(
     # raise a RuntimeError that says how to fix it. After the pipeline, read
     # the values train used with `read_params_used`, and pass them and the
     # commit state to `notify` (see its signature in tasks.py).
-    print("training_flow is not implemented yet — see the TODO in flows.py (Exercise 1).")
-    return {}
+
 
 
 @flow(name="diabetes-training-with-pull", log_prints=True)
