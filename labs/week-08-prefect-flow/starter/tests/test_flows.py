@@ -233,7 +233,6 @@ def test_an_experiment_run_records_uncommitted_params(
 # ── The scheduled flow (Exercise 5) ─────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 5 — implement scheduled_flow, then delete this skip marker.")
 def test_scheduled_flow_pulls_first_and_refuses_uncommitted_params(
     prefect_harness, monkeypatch, tmp_path, settings
 ):

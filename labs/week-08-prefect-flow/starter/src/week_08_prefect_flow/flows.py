@@ -137,5 +137,6 @@ def scheduled_flow() -> dict:
     #
     # Do NOT register or promote here, and be ready to say why in a sentence
     # that is not about credentials.
-    print("scheduled_flow is not implemented yet — see the TODO in flows.py (Exercise 5).")
-    return {}
+    settings = load_settings()
+    pull_data(settings)
+    return training_flow(require_committed_params=True)
