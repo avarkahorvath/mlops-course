@@ -80,20 +80,7 @@ def training_flow(
     # try/except, notify with the error, and re-raise. A flow that only
     # reports its successes is the Toy Story 2 backup with extra steps.
     #
-
-
-    settings = load_settings()
-    try:
-        build_dataset(settings)
-        verdict = run_pipeline(settings)
-
-    except Exception as e:
-        notify(settings, {}, error=str(e))
-        raise
-
-    notify(settings, verdict)
-        
-    return verdict
+    
 
     # TODO(student) Exercise 4 — record the parameters, and refuse
     # uncommitted ones when asked.
@@ -104,6 +91,24 @@ def training_flow(
     # the values train used with `read_params_used`, and pass them and the
     # commit state to `notify` (see its signature in tasks.py).
 
+    settings = load_settings()
+
+    try:
+        committed = params_committed(settings)                          
+        if require_committed_params and not committed:                  
+            raise RuntimeError(
+                "params.yaml has uncommitted changes; commit them "
+                "or undo them with `git restore params.yaml`"
+            )
+        build_dataset(settings)
+        verdict = run_pipeline(settings)
+        params = read_params_used(settings)                             
+    except Exception as e:
+        notify(settings, {}, error=str(e))
+        raise
+
+    notify(settings, verdict, params=params, committed=committed)       
+    return verdict
 
 
 @flow(name="diabetes-training-with-pull", log_prints=True)

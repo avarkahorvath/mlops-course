@@ -202,7 +202,9 @@ def read_params_used(settings: Settings, stage: str = "train") -> dict:
     # `stage` as one dictionary of name -> value, for example
     # {"train.C": 1.0, "train.family": "logreg"}. Read the file, not
     # params.yaml: the record must say what the stage used.
-    return {}
+    lock = yaml.safe_load((settings.project_root / "dvc.lock").read_text())
+    params = lock["stages"][stage].get("params", {})
+    return {name: value for values in params.values() for name, value in values.items()}
 
 
 # ── Retries: the network edges, and nowhere else ────────────────────────────
