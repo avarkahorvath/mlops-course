@@ -104,13 +104,13 @@ def _run_dvc(settings: Settings, *args: str) -> str:
 # `tests/test_flows.py` asserts your answer — and asserts that the local,
 # deterministic tasks did NOT get them.
 NETWORK_RETRIES = {
-    "retries": 0,
+    "retries": 3,
     # Doubling, so a service that is restarting gets a chance to finish.
-    # "retry_delay_seconds": exponential_backoff(backoff_factor=2),
+    "retry_delay_seconds": exponential_backoff(backoff_factor=2),
     # Jitter matters more than it looks. Without it, every task that failed at
     # the same moment retries at the same moment, and a service that fell over
     # because of load gets hit by the identical burst that felled it.
-    # "retry_jitter_factor": 0.5,
+    "retry_jitter_factor": 0.5,
 }
 
 

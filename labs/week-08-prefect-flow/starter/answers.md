@@ -20,3 +20,12 @@ Prefect would run  every stage, DVC could potentially skip stages if they do not
 
 Splitting could be useful for different environments. If train is resource consuming (needs GPU/TPU, which is expensive), but prepare is not, then seperating them and running them in different environments makes sense.
 
+## Exercise 3
+
+### 3.1
+*Why might retries=3 on run_pipeline be unsuitable?*
+Pipeline failures are deterministic, so retries are a waste, most likely they will fail identically.
+
+### 3.2
+*Retrying is safe only if running the same operation twice does no harm. Which of the tasks that retry is not safe to repeat? What would a retry do there, and how much does the existing check in that task protect you*
+register_model is not safe to repeat. If mlflow commits the model version but then the response is lost, the retry registers an identicayl version.
